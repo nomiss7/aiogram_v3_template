@@ -3,9 +3,9 @@ from aiogram import Router
 from aiogram.filters import CommandStart, Text
 from aiogram.types import Message, CallbackQuery
 
-from app.lexicon.lexicon import phrases
+from lexicon.lexicon import phrases
 
-from app.keyboards.inline.languages_kb import choose_language_kb
+from keyboards.inline.languages_kb import choose_language_kb
 
 router = Router()
 

@@ -3,7 +3,7 @@ class Database:
         self.conn = conn
 
     async def sql_get_user_id(self, user_id):
-        query = "SELECT user_id FROM user_info WHERE user_id = $1"
+        query = "SELECT user_id FROM user_info WHERE user_id = $1 LIMIT 1"
         return await self.conn.fetchval(query, user_id)
 
     async def sql_create_user(self, user_id, lexicon, datetime):

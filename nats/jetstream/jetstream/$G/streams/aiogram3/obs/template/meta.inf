@@ -1,0 +1,1 @@
+{"Created":"2023-06-30T09:12:40.132799Z","Name":"template","durable_name":"template","deliver_policy":"all","ack_policy":"explicit","ack_wait":30000000000,"max_deliver":-1,"replay_policy":"original","max_waiting":512,"max_ack_pending":1000,"num_replicas":0}

@@ -3,17 +3,17 @@ import logging
 import asyncpg
 
 import nats
-from app.nats_fsm.Entry import NATSFSMStorage
+from nats_fsm.Entry import NATSFSMStorage
 
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram import Bot, Dispatcher
 
-from app.middlewares.language import LanguageMiddleware
-from app.config import load_config
-from app.middlewares.db import DbMiddleware
-from app.navigation.commands import set_bot_commands
-from app.handlers import commands
-from app.db.create_tables import create_table
+from middlewares.language import LanguageMiddleware
+from config import load_config
+from middlewares.db import DbMiddleware
+from navigation.commands import set_bot_commands
+from handlers import commands
+from db.create_tables import create_table
 
 
 class App:
@@ -30,7 +30,7 @@ class App:
 
     async def create_storage(self):
         if self.config.tg_bot.use_nats:
-            nc = await nats.connect()
+            nc = await nats.connect(servers=["nats://nats:4222"])
             js = nc.jetstream()
             kv_states = await js.key_value('fsm_states_aiogram')
             kv_data = await js.key_value('fsm_data_aiogram')
@@ -39,7 +39,7 @@ class App:
         else:
             storage = MemoryStorage()
 
-            return storage
+        return storage
 
     async def create_pool(self):
         self.pool = await asyncpg.create_pool(
@@ -92,5 +92,5 @@ if __name__ == '__main__':
     logger = logging.getLogger(__name__)
     logger.info("Starting bot")
 
-    app = load_app("app/data.ini")
+    app = load_app("data.ini")
     run_app(app)

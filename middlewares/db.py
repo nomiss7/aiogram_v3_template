@@ -4,7 +4,7 @@ from aiogram import BaseMiddleware
 import asyncpg
 from aiogram.types import TelegramObject
 
-from app.db.database import Database
+from db.database import Database
 
 
 class DbMiddleware(BaseMiddleware):
